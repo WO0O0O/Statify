@@ -1,0 +1,82 @@
+.navbar {
+  background-color: rgba(18, 18, 18, 0.9);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.navbar-logo a {
+  color: var(--spotify-green);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+.navbar-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-item {
+  margin-left: 1.5rem;
+}
+
+.navbar-link {
+  color: var(--spotify-white);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+  padding: 0.5rem;
+  border-radius: 4px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.navbar-link:hover {
+  color: var(--spotify-green);
+}
+
+.logout-btn {
+  color: var(--spotify-white);
+  background-color: transparent;
+  border: 1px solid var(--spotify-grey);
+  padding: 0.5rem 1rem;
+}
+
+.logout-btn:hover {
+  border-color: var(--spotify-green);
+}
+
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .navbar-menu {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  .navbar-item {
+    margin-left: 0;
+    margin-bottom: 0.5rem;
+  }
+}

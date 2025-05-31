@@ -1,0 +1,147 @@
+.top-items-container {
+  padding: 2rem 0;
+}
+
+.page-title {
+  color: var(--spotify-white);
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.time-range-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.time-range-selector p {
+  margin-bottom: 0.5rem;
+  color: var(--spotify-grey);
+}
+
+.time-range-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.time-range-button {
+  background-color: #333333;
+  color: var(--spotify-white);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.time-range-button:hover {
+  background-color: #444444;
+}
+
+.time-range-button.active {
+  background-color: var(--spotify-green);
+}
+
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.item-card {
+  background-color: #282828;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.item-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.item-rank {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: var(--spotify-white);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  z-index: 1;
+}
+
+.item-image {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.item-image-placeholder {
+  width: 100%;
+  aspect-ratio: 1;
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--spotify-grey);
+}
+
+.item-details {
+  padding: 1rem;
+}
+
+.item-name {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: var(--spotify-white);
+  font-size: 1.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-artist, .item-followers, .item-album, .item-duration {
+  color: var(--spotify-grey);
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+.item-genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.genre-tag {
+  background-color: #333;
+  color: #b3b3b3;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 1rem;
+}
+
+.no-data {
+  text-align: center;
+  margin-top: 2rem;
+  color: var(--spotify-grey);
+}
+
+@media (max-width: 768px) {
+  .items-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+}
