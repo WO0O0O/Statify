@@ -19,14 +19,6 @@
 - **Database**: SQLite (with potential migration to PostgreSQL for production)
 - **Authentication**: OAuth 2.0 for Spotify API
 
-## Installation
-
-1. Clone repo:
-```bash
-git clone https://github.com/yourusername/Statify.git
-cd Statify
-```
-
 ## Backend Setup
 
 1. Navigate to the backend directory:
@@ -56,7 +48,7 @@ pip install -r requirements.txt
 
 5. Run the Flask server:
 ```bash
-python run.py
+python3 run.py
 ```
 The backend server will start at http://127.0.0.1:5001
 
