@@ -94,6 +94,96 @@ def get_recently_played():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@api_bp.route('/top-genres')
+def get_top_genres():
+    """Calculate user's top genres based on their top artists"""
+    user_id = session.get('user_id')
+    if not user_id:
+        return jsonify({"error": "Not authenticated"}), 401
+    
+    # Get optional parameters
+    time_range = request.args.get('time_range', 'medium_term')
+    limit = request.args.get('limit', 50, type=int)
+    
+    sp = get_spotify_client(user_id)
+    if not sp:
+        return jsonify({"error": "Failed to create Spotify client"}), 500
+    
+    try:
+        # Get user's top artists
+        artists_response = sp.current_user_top_artists(limit=limit, time_range=time_range)
+        artists = artists_response['items']
+        
+        # Extract and count genres
+        genre_counts = {}
+        for artist in artists:
+            for genre in artist['genres']:
+                if genre in genre_counts:
+                    genre_counts[genre] += 1
+                else:
+                    genre_counts[genre] = 1
+        
+        # Sort genres by count and format response
+        sorted_genres = [{"name": genre, "count": count} 
+                        for genre, count in sorted(genre_counts.items(), 
+                                                key=lambda item: item[1], 
+                                                reverse=True)]
+        
+        return jsonify({"items": sorted_genres})
+        
+    except Exception as e:
+        current_app.logger.error(f"Error getting top genres: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+@api_bp.route('/top-albums')
+def get_top_albums():
+    """Calculate user's top albums based on their top tracks"""
+    user_id = session.get('user_id')
+    if not user_id:
+        return jsonify({"error": "Not authenticated"}), 401
+    
+    # Get optional parameters
+    time_range = request.args.get('time_range', 'medium_term')
+    limit = request.args.get('limit', 50, type=int)
+    
+    sp = get_spotify_client(user_id)
+    if not sp:
+        return jsonify({"error": "Failed to create Spotify client"}), 500
+    
+    try:
+        # Get user's top tracks
+        tracks_response = sp.current_user_top_tracks(limit=limit, time_range=time_range)
+        tracks = tracks_response['items']
+        
+        # Extract and count albums
+        album_dict = {}
+        for track in tracks:
+            album_id = track['album']['id']
+            
+            if album_id in album_dict:
+                album_dict[album_id]['count'] += 1
+                album_dict[album_id]['tracks'].append(track['name'])
+            else:
+                album_dict[album_id] = {
+                    'id': album_id,
+                    'name': track['album']['name'],
+                    'artists': [artist['name'] for artist in track['album']['artists']],
+                    'images': track['album']['images'],
+                    'release_date': track['album']['release_date'],
+                    'tracks': [track['name']],
+                    'count': 1
+                }
+        
+        # Convert to list and sort by frequency
+        albums = list(album_dict.values())
+        albums.sort(key=lambda x: x['count'], reverse=True)
+        
+        return jsonify({"items": albums})
+        
+    except Exception as e:
+        current_app.logger.error(f"Error getting top albums: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
 
 @api_bp.route('/stats')
 def get_saved_stats():

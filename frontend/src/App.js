@@ -12,6 +12,8 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import TopArtists from "./pages/TopArtists";
 import TopTracks from "./pages/TopTracks";
+import TopGenres from "./pages/TopGenres";
+import TopAlbums from "./pages/TopAlbums";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -105,6 +107,22 @@ function App() {
             element={
               <PrivateRoute isAuthenticated={isAuthenticated}>
                 <TopTracks />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/top-genres"
+            element={
+              <PrivateRoute isAuthenticated={isAuthenticated}>
+                <TopGenres />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/top-albums"
+            element={
+              <PrivateRoute isAuthenticated={isAuthenticated}>
+                <TopAlbums />
               </PrivateRoute>
             }
           />

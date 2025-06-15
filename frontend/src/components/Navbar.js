@@ -36,6 +36,12 @@ const Navbar = ({ onLogout }) => {
             <Link to="/top-tracks" className="navbar-link">Top Tracks</Link>
           </li>
           <li className="navbar-item">
+            <Link to="/top-genres" className="navbar-link">Top Genres</Link>
+          </li>
+          <li className="navbar-item">
+            <Link to="/top-albums" className="navbar-link">Top Albums</Link>
+          </li>
+          <li className="navbar-item">
             <button onClick={handleLogout} className="navbar-link logout-btn">Logout</button>
           </li>
         </ul>
