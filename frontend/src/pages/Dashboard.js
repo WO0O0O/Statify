@@ -57,21 +57,89 @@ const Dashboard = () => {
           )}
         </div>
         
-        <div className="dashboard-content">
-          <div className="card">
-            <h2>Explore Your Music</h2>
-            <p>Discover insights about your listening habits and preferences.</p>
-            <div className="card-links">
-              <a href="/top-artists" className="dashboard-link">View Top Artists</a>
-              <a href="/top-tracks" className="dashboard-link">View Top Tracks</a>
+        <div className="dashboard-intro">
+          <h2>Your Music Insights Dashboard</h2>
+          <p>Explore detailed statistics and visualisations of your crappy music taste</p>
+        </div>
+        
+        <div className="feature-categories">
+          {/* Top Stats Category */}
+          <div className="feature-category">
+            <h3 className="category-title">Top Stats</h3>
+            <div className="feature-cards">
+              <div className="feature-card">
+                <div className="feature-icon">💩</div>
+                <h4>Top Artists</h4>
+                <p>If Taylor Swift is on here, I hope you enjoy being lonely forever.</p>
+                <a href="/top-artists" className="feature-link">View Top Artists</a>
+              </div>
+              
+              <div className="feature-card">
+                <div className="feature-icon">💩</div>
+                <h4>Top Tracks</h4>
+                <p>Ok chatgpt wrote the rest of these</p>
+                <a href="/top-tracks" className="feature-link">View Top Tracks</a>
+              </div>
+              
+              <div className="feature-card">
+                <div className="feature-icon">💩</div>
+                <h4>Top Genres</h4>
+                <p>Oh look, "indie" and "alt-pop". How brave and unique of you.</p>
+                <a href="/top-genres" className="feature-link">View Top Genres</a>
+              </div>
+              
+              <div className="feature-card">
+                <div className="feature-icon">💩</div>
+                <h4>Top Albums</h4>
+                <p>Congratulations on your collection of music nobody respects you for.</p>
+                <a href="/top-albums" className="feature-link">View Top Albums</a>
+              </div>
             </div>
           </div>
           
-          <div className="stats-preview">
-            <h2>Your Listening Overview</h2>
-            <p>Connect with Spotify to see your personalised stats.</p>
-            <p className="note">Statify analyses your Spotify data to show you interesting insights about your music taste.</p>
+          {/* Audio Profile Category */}
+          <div className="feature-category">
+            <h3 className="category-title">Audio Profile</h3>
+            <div className="feature-cards">
+              <div className="feature-card coming-soon">
+                <div className="feature-icon">💩</div>
+                <h4>Audio Features</h4>
+                <p>Scientific proof your 5-year-old cousin has better taste than you.</p>
+                <span className="coming-soon-label">Coming Soon</span>
+              </div>
+              
+              <div className="feature-card coming-soon">
+                <div className="feature-icon">💩</div>
+                <h4>Mood Radar</h4>
+                <p>Visualize your listening patterns across different moods.</p>
+                <span className="coming-soon-label">Coming Soon</span>
+              </div>
+            </div>
           </div>
+          
+          {/* Listening Habits Category */}
+          <div className="feature-category">
+            <h3 className="category-title">Listening Habits</h3>
+            <div className="feature-cards">
+              <div className="feature-card coming-soon">
+                <div className="feature-icon">💩</div>
+                <h4>Recently Played</h4>
+                <p>Track your most recent listening activity.</p>
+                <span className="coming-soon-label">Coming Soon</span>
+              </div>
+              
+              <div className="feature-card coming-soon">
+                <div className="feature-icon">💩</div>
+                <h4>Era Preferences</h4>
+                <p>Discover which decades and musical eras you prefer.</p>
+                <span className="coming-soon-label">Coming Soon</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="dashboard-footer">
+          <p className="note">Statify analyses your Spotify data to show you interesting insights about your music taste.</p>
         </div>
       </div>
     </div>
