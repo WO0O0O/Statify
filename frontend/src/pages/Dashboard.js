@@ -59,7 +59,7 @@ const Dashboard = () => {
         
         <div className="dashboard-intro">
           <h2>Your Music Insights Dashboard</h2>
-          <p>Explore detailed statistics and visualisations of your Spotify listening habits</p>
+          <p>Explore detailed statistics and visualisations of your crappy music taste</p>
         </div>
         
         <div className="feature-categories">
@@ -68,30 +68,30 @@ const Dashboard = () => {
             <h3 className="category-title">Top Stats</h3>
             <div className="feature-cards">
               <div className="feature-card">
-                <div className="feature-icon">👨‍🎤</div>
+                <div className="feature-icon">💩</div>
                 <h4>Top Artists</h4>
-                <p>Discover your most-listened artists across different time periods.</p>
+                <p>If Taylor Swift is on here, I hope you enjoy being lonely forever.</p>
                 <a href="/top-artists" className="feature-link">View Top Artists</a>
               </div>
               
               <div className="feature-card">
-                <div className="feature-icon">🎵</div>
+                <div className="feature-icon">💩</div>
                 <h4>Top Tracks</h4>
-                <p>See which songs you've had on repeat lately.</p>
+                <p>Ok chatgpt wrote the rest of these</p>
                 <a href="/top-tracks" className="feature-link">View Top Tracks</a>
               </div>
               
               <div className="feature-card">
-                <div className="feature-icon">🏷️</div>
+                <div className="feature-icon">💩</div>
                 <h4>Top Genres</h4>
-                <p>Explore your genre preferences and musical tastes.</p>
+                <p>Oh look, "indie" and "alt-pop". How brave and unique of you.</p>
                 <a href="/top-genres" className="feature-link">View Top Genres</a>
               </div>
               
               <div className="feature-card">
-                <div className="feature-icon">💿</div>
+                <div className="feature-icon">💩</div>
                 <h4>Top Albums</h4>
-                <p>Check which albums you've been streaming the most.</p>
+                <p>Congratulations on your collection of music nobody respects you for.</p>
                 <a href="/top-albums" className="feature-link">View Top Albums</a>
               </div>
             </div>
@@ -102,14 +102,14 @@ const Dashboard = () => {
             <h3 className="category-title">Audio Profile</h3>
             <div className="feature-cards">
               <div className="feature-card coming-soon">
-                <div className="feature-icon">📊</div>
+                <div className="feature-icon">💩</div>
                 <h4>Audio Features</h4>
-                <p>Analyze the musical attributes of your favorite tracks.</p>
+                <p>Scientific proof your 5-year-old cousin has better taste than you.</p>
                 <span className="coming-soon-label">Coming Soon</span>
               </div>
               
               <div className="feature-card coming-soon">
-                <div className="feature-icon">📈</div>
+                <div className="feature-icon">💩</div>
                 <h4>Mood Radar</h4>
                 <p>Visualize your listening patterns across different moods.</p>
                 <span className="coming-soon-label">Coming Soon</span>
@@ -122,14 +122,14 @@ const Dashboard = () => {
             <h3 className="category-title">Listening Habits</h3>
             <div className="feature-cards">
               <div className="feature-card coming-soon">
-                <div className="feature-icon">🕰️</div>
+                <div className="feature-icon">💩</div>
                 <h4>Recently Played</h4>
                 <p>Track your most recent listening activity.</p>
                 <span className="coming-soon-label">Coming Soon</span>
               </div>
               
               <div className="feature-card coming-soon">
-                <div className="feature-icon">📅</div>
+                <div className="feature-icon">💩</div>
                 <h4>Era Preferences</h4>
                 <p>Discover which decades and musical eras you prefer.</p>
                 <span className="coming-soon-label">Coming Soon</span>
