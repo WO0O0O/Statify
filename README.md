@@ -47,13 +47,25 @@ pip install -r requirements.txt
 
 4. Set up environment variables:
 
-````bash
-# Create .env file
-
-5. Run the Flask server:
 ```bash
-python3 run.py
-````
+# Create .env file in backend/
+```
+
+5. Run the backend server:
+
+**Production (recommended):**
+
+```bash
+source venv/bin/activate
+gunicorn run:app --bind 0.0.0.0:5001
+```
+
+**Local development (with debug mode):**
+
+```bash
+source venv/bin/activate
+FLASK_ENV=development FLASK_DEBUG=True python3 run.py
+```
 
 The backend server will start at http://127.0.0.1:5001
 
@@ -74,7 +86,7 @@ npm install
 3. Start the React development server:
 
 ```bash
-npm start
+npm run dev
 ```
 
 The frontend will be available at http://127.0.0.1:3000

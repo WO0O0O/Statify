@@ -6,12 +6,14 @@ import {
   Navigate,
 } from "react-router-dom";
 import "./styles/App.css";
+import { API_BASE_URL } from "./config";
 
 // Pages
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import TopArtists from "./pages/TopArtists";
 import TopTracks from "./pages/TopTracks";
+import TopGenres from "./pages/TopGenres";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -29,7 +31,7 @@ function App() {
     const checkAuthStatus = async () => {
       try {
         console.log("Checking auth status...");
-        const response = await fetch("http://127.0.0.1:5001/auth/me", {
+        const response = await fetch(`${API_BASE_URL}/auth/me`, {
           credentials: "include",
         });
 
@@ -66,7 +68,7 @@ function App() {
           <Navbar
             onLogout={async () => {
               try {
-                await fetch("http://127.0.0.1:5001/auth/logout", {
+                await fetch(`${API_BASE_URL}/auth/logout`, {
                   method: "POST",
                   credentials: "include",
                 });
@@ -105,6 +107,14 @@ function App() {
             element={
               <PrivateRoute isAuthenticated={isAuthenticated}>
                 <TopTracks />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/top-genres"
+            element={
+              <PrivateRoute isAuthenticated={isAuthenticated}>
+                <TopGenres />
               </PrivateRoute>
             }
           />
