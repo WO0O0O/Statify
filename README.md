@@ -19,6 +19,8 @@
 - **Database**: SQLite (with potential migration to PostgreSQL for production)
 - **Authentication**: OAuth 2.0 for Spotify API
 
+move to dif md
+
 ## Backend Setup
 
 1. Navigate to the backend directory:
