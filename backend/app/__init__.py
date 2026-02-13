@@ -11,9 +11,9 @@ def create_app(config_name='default'):
     app.config.from_object(config[config_name])
     
     # Configure session to be more secure but work across domains
-    app.config['SESSION_COOKIE_SECURE'] = False  # Set to True in production with HTTPS
-    app.config['SESSION_COOKIE_HTTPONLY'] = True
-    app.config['SESSION_COOKIE_SAMESITE'] = None  # Allow cross-domain cookies
+    app.config['SESSION_COOKIE_SECURE'] = app.config.get('SESSION_COOKIE_SECURE', False)
+    app.config['SESSION_COOKIE_HTTPONLY'] = app.config.get('SESSION_COOKIE_HTTPONLY', True)
+    app.config['SESSION_COOKIE_SAMESITE'] = app.config.get('SESSION_COOKIE_SAMESITE', 'Lax')
     app.config['SESSION_COOKIE_DOMAIN'] = None  # Allow all domains
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=1)  # 1 day session
     app.config['SESSION_TYPE'] = 'filesystem'
@@ -22,7 +22,8 @@ def create_app(config_name='default'):
     db.init_app(app)
     
     # Configure CORS to allow credentials
-    CORS(app, supports_credentials=True, resources={r"/*": {"origins": ["http://localhost:3000", "http://127.0.0.1:3000"]}})
+    cors_origins = [origin.strip() for origin in app.config.get('CORS_ORIGINS', '').split(',') if origin.strip()]
+    CORS(app, supports_credentials=True, resources={r"/*": {"origins": cors_origins}})
     
     # Register blueprints
     from app.auth import auth_bp

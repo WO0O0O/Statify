@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 import '../styles/Dashboard.css';
 
 const Dashboard = () => {
@@ -9,7 +10,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:5001/api/profile', {
+        const response = await fetch(`${API_BASE_URL}/api/profile`, {
           credentials: 'include'
         });
         

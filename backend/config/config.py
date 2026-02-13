@@ -1,8 +1,8 @@
 import os
 from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv()
+# Load environment variables from backend/.env explicitly
+load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
 
 class Config:
     """Base configuration"""
@@ -15,6 +15,11 @@ class Config:
     SPOTIFY_CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID')
     SPOTIFY_CLIENT_SECRET = os.environ.get('SPOTIFY_CLIENT_SECRET')
     SPOTIFY_REDIRECT_URI = os.environ.get('SPOTIFY_REDIRECT_URI')
+    FRONTEND_URL = os.environ.get('FRONTEND_URL', 'http://127.0.0.1:3000')
+    CORS_ORIGINS = os.environ.get('CORS_ORIGINS', 'http://localhost:3000,http://127.0.0.1:3000')
+    SESSION_COOKIE_SECURE = False
+    SESSION_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SAMESITE = 'Lax'
 
 
 class DevelopmentConfig(Config):
@@ -30,6 +35,9 @@ class TestingConfig(Config):
 
 class ProductionConfig(Config):
     """Production configuration"""
+    DEBUG = False
+    SESSION_COOKIE_SECURE = True
+    SESSION_COOKIE_SAMESITE = 'None'
     # Use PostgreSQL for production
     # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 
@@ -38,5 +46,5 @@ config = {
     'development': DevelopmentConfig,
     'testing': TestingConfig,
     'production': ProductionConfig,
-    'default': DevelopmentConfig
+    'default': ProductionConfig
 }

@@ -19,68 +19,84 @@
 - **Database**: SQLite (with potential migration to PostgreSQL for production)
 - **Authentication**: OAuth 2.0 for Spotify API
 
-## Installation
-
-1. Clone repo:
-```bash
-git clone https://github.com/yourusername/Statify.git
-cd Statify
-```
+move to dif md
 
 ## Backend Setup
 
 1. Navigate to the backend directory:
+
 ```bash
 cd backend
 ```
 
 2. Create and activate a virtual environment:
+
 ```bash
 # Create virtual environment
 python3 -m venv venv
 
 # Activate virtual environment
-source venv/bin/activate  # On macOS/Linux
+source venv/bin/activate
 # or
-venv\Scripts\activate  # On Windows
+venv\Scripts\activate
 ```
 
 3. Install dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
 
 4. Set up environment variables:
-```bash
-# Create .env file
 
-5. Run the Flask server:
 ```bash
-python run.py
+# Create .env file in backend/
 ```
+
+5. Run the backend server:
+
+**Production (recommended):**
+
+```bash
+source venv/bin/activate
+gunicorn run:app --bind 0.0.0.0:5001
+```
+
+**Local development (with debug mode):**
+
+```bash
+source venv/bin/activate
+FLASK_ENV=development FLASK_DEBUG=True python3 run.py
+```
+
 The backend server will start at http://127.0.0.1:5001
 
 ## Frontend Setup
 
 1. Open a new terminal window and navigate to the frontend directory:
+
 ```bash
 cd frontend
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Start the React development server:
+
 ```bash
-npm start
+npm run dev
 ```
+
 The frontend will be available at http://127.0.0.1:3000
 
 ## Project Structure
 
 The project is divided into several phases:
+
 - **Phase 1**: Setup & Authentication
 - **Phase 2**: Data Retrieval & Processing
 - **Phase 3**: Frontend Development & Visualisation

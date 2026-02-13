@@ -1,10 +1,11 @@
 import React from 'react';
+import { API_BASE_URL } from '../config';
 import '../styles/Login.css';
 
 const Login = () => {
   const handleLogin = () => {
     // Redirect to backend auth endpoint
-    window.location.href = 'http://127.0.0.1:5001/auth/login';
+    window.location.href = `${API_BASE_URL}/auth/login`;
   };
 
   return (

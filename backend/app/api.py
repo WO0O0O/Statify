@@ -75,6 +75,42 @@ def get_top_items(item_type):
         return jsonify({"error": str(e)}), 500
 
 
+@api_bp.route('/top-genres')
+def get_top_genres():
+    """Derive top genres from the user's top artists"""
+    user_id = session.get('user_id')
+    if not user_id:
+        return jsonify({"error": "Not authenticated"}), 401
+
+    time_range = request.args.get('time_range', 'medium_term')
+    limit = request.args.get('limit', 50, type=int)
+
+    sp = get_spotify_client(user_id)
+    if not sp:
+        return jsonify({"error": "Failed to create Spotify client"}), 500
+
+    try:
+        # Fetch top artists (up to 50) to get a good genre sample
+        artists = sp.current_user_top_artists(limit=limit, time_range=time_range)
+        
+        # Count genre occurrences, weighted by artist ranking
+        genre_counts = {}
+        for i, artist in enumerate(artists.get('items', [])):
+            weight = limit - i  # higher-ranked artists contribute more
+            for genre in artist.get('genres', []):
+                genre_counts[genre] = genre_counts.get(genre, 0) + weight
+
+        # Sort by count descending
+        sorted_genres = sorted(genre_counts.items(), key=lambda x: x[1], reverse=True)
+
+        return jsonify({
+            "genres": [{"name": name, "count": count} for name, count in sorted_genres],
+            "total_artists_sampled": len(artists.get('items', []))
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 @api_bp.route('/recently-played')
 def get_recently_played():
     """Get user's recently played tracks"""
