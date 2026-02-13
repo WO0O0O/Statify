@@ -22,57 +22,67 @@
 ## Backend Setup
 
 1. Navigate to the backend directory:
+
 ```bash
 cd backend
 ```
 
 2. Create and activate a virtual environment:
+
 ```bash
 # Create virtual environment
 python3 -m venv venv
 
 # Activate virtual environment
-source venv/bin/activate  # On macOS/Linux
+source venv/bin/activate
 # or
-venv\Scripts\activate  # On Windows
+venv\Scripts\activate
 ```
 
 3. Install dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
 
 4. Set up environment variables:
-```bash
+
+````bash
 # Create .env file
 
 5. Run the Flask server:
 ```bash
 python3 run.py
-```
+````
+
 The backend server will start at http://127.0.0.1:5001
 
 ## Frontend Setup
 
 1. Open a new terminal window and navigate to the frontend directory:
+
 ```bash
 cd frontend
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Start the React development server:
+
 ```bash
 npm start
 ```
+
 The frontend will be available at http://127.0.0.1:3000
 
 ## Project Structure
 
 The project is divided into several phases:
+
 - **Phase 1**: Setup & Authentication
 - **Phase 2**: Data Retrieval & Processing
 - **Phase 3**: Frontend Development & Visualisation

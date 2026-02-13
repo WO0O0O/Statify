@@ -100,7 +100,8 @@ def callback():
     session["logged_in"] = True
 
     # Redirect to frontend
-    return redirect("http://127.0.0.1:3000/dashboard")
+    frontend_url = current_app.config.get("FRONTEND_URL", "http://127.0.0.1:3000").rstrip("/")
+    return redirect(f"{frontend_url}/dashboard")
 
 
 @auth_bp.route("/logout", methods=["POST"])

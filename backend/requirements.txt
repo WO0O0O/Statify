@@ -6,3 +6,4 @@ flask-sqlalchemy==2.5.1
 SQLAlchemy<2.0
 Werkzeug<2.1
 spotipy==2.19.0
+gunicorn==23.0.0
