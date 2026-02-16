@@ -56,6 +56,9 @@ def create_app(config_name='default'):
         response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
         response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
         
+        # Critical: Tell caches that this response varies based on the Cookie header
+        response.headers.add('Vary', 'Cookie')
+        
         # Disable caching for auth and API endpoints to prevent session leakage
         try:
             if request.path.startswith('/auth/') or request.path.startswith('/api/'):
