@@ -1,8 +1,17 @@
 from flask import Flask
 from flask_cors import CORS
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from database.models import db
 from config.config import config
 from datetime import timedelta
+
+# Initialise limiter at module level so blueprints can import it
+limiter = Limiter(
+    key_func=get_remote_address,
+    default_limits=["200 per day", "50 per hour"],
+    storage_uri="memory://",
+)
 
 
 def create_app(config_name='default'):
@@ -19,6 +28,7 @@ def create_app(config_name='default'):
     
     # Initialize extensions
     db.init_app(app)
+    limiter.init_app(app)
     
     # Configure CORS to allow credentials
     cors_origins = [origin.strip() for origin in app.config.get('CORS_ORIGINS', '').split(',') if origin.strip()]
@@ -44,3 +54,4 @@ def create_app(config_name='default'):
         return response
     
     return app
+

@@ -7,8 +7,10 @@ Setting up Supabase for Statify — concise steps
 
 2. Get the connection URI
 
-- In Supabase dashboard → Project Settings → Database → Connection string → URI.
-- Copy the URI (format: `postgresql://...:6543/postgres`). Use the port `6543`.
+- In Supabase dashboard → Project Settings → Database → Connection string.
+- **IMPORTANT**: Change the "Method" dropdown from "Direct connection" to **"Transaction Pooler"** (or "Session Pooler") to avoid IPv4 issues.
+- Copy the URI (it should use port `6543`).
+- Replace `[YOUR-PASSWORD]` with your actual database password.
 
 3. Add the Postgres driver
 

@@ -5,8 +5,8 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))  
 from app import create_app
 
-# Get environment (default to production for safety)
-env = os.environ.get('FLASK_ENV', 'production')
+# Get environment (default to development for local convenience)
+env = os.environ.get('FLASK_ENV', 'development')
 app = create_app(env)
 
 if __name__ == '__main__':

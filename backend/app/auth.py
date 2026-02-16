@@ -1,10 +1,12 @@
 import os
+import secrets
 import requests
 from flask import Blueprint, request, redirect, session, jsonify, current_app, url_for
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from datetime import datetime, timedelta
 from database.models import db, User
+from app import limiter
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -22,17 +24,21 @@ def get_spotify_oauth():
 
 
 @auth_bp.route("/login")
+@limiter.limit("10 per minute")
 def login():
     """Redirect user to Spotify authorization page"""
     sp_oauth = get_spotify_oauth()
-    auth_url = sp_oauth.get_authorize_url()
+
+    # Generate and store CSRF state token
+    state = secrets.token_urlsafe(32)
+    session['oauth_state'] = state
+    auth_url = sp_oauth.get_authorize_url(state=state)
 
     force_login = request.cookies.get("force_login") == "true"
 
     if force_login:
         auth_url += "&prompt=login"
 
-        print(f"Redirecting to Spotify auth URL: {auth_url}")
         response = redirect(auth_url)
         response.set_cookie("force_login", "", expires=0)  # Clear the cookie
         return response
@@ -40,8 +46,16 @@ def login():
 
 
 @auth_bp.route("/callback")
+@limiter.limit("10 per minute")
 def callback():
     """Handle the callback from Spotify"""
+    # Validate CSRF state parameter
+    returned_state = request.args.get("state")
+    stored_state = session.pop('oauth_state', None)
+    if not returned_state or not stored_state or returned_state != stored_state:
+        current_app.logger.warning("OAuth state mismatch — possible CSRF attack")
+        return jsonify({"error": "Invalid OAuth state. Please try logging in again."}), 403
+
     sp_oauth = get_spotify_oauth()
     code = request.args.get("code")
 
@@ -94,7 +108,8 @@ def callback():
 
     db.session.commit()
 
-    # Create a permanent session for the user
+    # Regenerate session to prevent session fixation
+    session.clear()
     session.permanent = True
     session["user_id"] = user.id
     session["logged_in"] = True
@@ -111,11 +126,12 @@ def logout():
 
     session.clear()
     response = jsonify({"message": "Logged out successfully"})
-    response.set_cookie("force_login", "true", max_age=30)
+    response.set_cookie("force_login", "true", max_age=30, httponly=True, samesite='Lax')
     return response
 
 
 @auth_bp.route("/refresh-token")
+@limiter.limit("20 per minute")
 def refresh_token():
     """Refresh the access token"""
     user_id = session.get("user_id")
