@@ -9,7 +9,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - **Login Loop on Safari/iOS**: Renamed session cookie to `statify_session` to bypass "zombie" cookies from previous configurations. This resolves 401 errors during auth flow caused by browser persistence of invalid/old cookies.
-- **Session Configuration**: Removed unused `SESSION_TYPE = 'filesystem'` config to prevent confusion and potential conflicts.
+  - **Session Configuration**: Removed unused `SESSION_TYPE = 'filesystem'` config to prevent confusion and potential conflicts.
+
+# v1.1.1 — Session Leakage & Database Hardening
+
+### Fixed
+
+- **Session Leakage (Critical)**: Implemented aggressive cache control (`Cache-Control: no-store`, `Vary: Cookie`) to prevent browsers and intermediate proxies (CDNs) from serving one user's dashboard to another.
+  - Modified: `backend/app/__init__.py`
+- **Session Cookie Isolation**: Renamed session cookie to `statify_session` to invalidate old/conflicting cookies and ensure clean session starts.
+  - Modified: `backend/config/config.py`
+- **Database Crash on Login (500 Error)**: Fixed a crash caused by Apple/Facebook-linked Spotify accounts having profile image URLs longer than 255 characters. The database schema was migrated to `TEXT` (via SQL) and the application code was updated to handle long URLs gracefully with fail-safe `try/except` blocks around DB commits.
+  - Modified: `backend/app/auth.py`
+  - Modified: `backend/database/models.py`
+
+### Security
+
+- **AI Crawler Blocking**: Added `robots.txt` to explicitly block major AI bots (GPTBot, CCBot, Google-Extended, etc.) from crawling the application.
+  - New file: `backend/app/static/robots.txt`
+- **Git History Audit**: Verified no secrets were exposed in recent commits during a spike in repository clones.
+
+### Operations
+
+- **Spotify Development Mode**: Identified that `403 Forbidden` errors for new users are due to the Spotify App being in "Development Mode", which restricts access to whitelisted users only. Documented steps to request Quota Extension for public access.
 
 # v1.1.0 — Security Hardening (Critical Fixes)
 
