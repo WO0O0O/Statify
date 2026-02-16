@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, send_from_directory
+import os
 from flask_cors import CORS
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_limiter import Limiter
@@ -57,5 +58,13 @@ def create_app(config_name='default'):
         response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
         return response
     
+    # Serve React Frontend
+    @app.route('/', defaults={'path': ''})
+    @app.route('/<path:path>')
+    def serve(path):
+        if path != "" and os.path.exists(app.static_folder + '/' + path):
+            return app.send_static_file(path)
+        return app.send_static_file('index.html')
+
     return app
 
