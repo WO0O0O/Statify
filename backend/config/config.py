@@ -23,6 +23,7 @@ class Config:
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = 'Lax'
     SESSION_COOKIE_DOMAIN = os.environ.get('SESSION_COOKIE_DOMAIN')
+    SESSION_COOKIE_NAME = 'statify_session'
 
 
 class DevelopmentConfig(Config):

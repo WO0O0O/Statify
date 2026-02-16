@@ -29,7 +29,6 @@ def create_app(config_name='default'):
     app.config['SESSION_COOKIE_HTTPONLY'] = app.config.get('SESSION_COOKIE_HTTPONLY', True)
     app.config['SESSION_COOKIE_SAMESITE'] = app.config.get('SESSION_COOKIE_SAMESITE', 'Lax')
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=1)  # 1 day session
-    app.config['SESSION_TYPE'] = 'filesystem'
     
     # Initialize extensions
     db.init_app(app)
