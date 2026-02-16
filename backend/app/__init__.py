@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, request
 import os
 from flask_cors import CORS
 from werkzeug.middleware.proxy_fix import ProxyFix
@@ -57,11 +57,13 @@ def create_app(config_name='default'):
         response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
         
         # Disable caching for auth and API endpoints to prevent session leakage
-        from flask import request
-        if request.path.startswith('/auth/') or request.path.startswith('/api/'):
-            response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
-            response.headers['Pragma'] = 'no-cache'
-            response.headers['Expires'] = '0'
+        try:
+            if request.path.startswith('/auth/') or request.path.startswith('/api/'):
+                response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+                response.headers['Pragma'] = 'no-cache'
+                response.headers['Expires'] = '0'
+        except Exception:
+            pass
             
         return response
     
