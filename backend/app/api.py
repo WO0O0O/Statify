@@ -45,6 +45,7 @@ def get_spotify_client(user_id):
 def get_profile():
     """Get the user's Spotify profile"""
     user_id = session.get('user_id')
+    current_app.logger.info(f"GET /profile requested by Session User ID: {user_id}")
     if not user_id:
         return jsonify({"error": "Not authenticated"}), 401
     

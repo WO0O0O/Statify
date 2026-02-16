@@ -71,6 +71,7 @@ def callback():
     # Use the access token to get user profile
     sp = spotipy.Spotify(auth=token_info["access_token"])
     user_profile = sp.current_user()
+    current_app.logger.info(f"Spotify Auth Success: ID={user_profile['id']}, Name={user_profile.get('display_name')}")
 
     # Check if user exists in database
     user = User.query.filter_by(spotify_id=user_profile["id"]).first()
