@@ -89,6 +89,7 @@ def callback():
         # Get profile image if available
         if user_profile.get("images") and len(user_profile["images"]) > 0:
             user.profile_image = user_profile["images"][0]["url"]
+            
     else:
         # Create new user
         profile_image = None
@@ -106,7 +107,12 @@ def callback():
         )
         db.session.add(user)
 
-    db.session.commit()
+    try:
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        current_app.logger.exception("Database commit failed during login")
+        return redirect("/error?message=Login%20failed%20due%20to%20server%20error")
 
     # Regenerate session to prevent session fixation
     session.clear()

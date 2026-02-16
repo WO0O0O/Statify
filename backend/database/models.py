@@ -12,7 +12,7 @@ class User(db.Model):
     spotify_id = db.Column(db.String(64), unique=True, nullable=False)
     display_name = db.Column(db.String(128))
     email = db.Column(db.String(128))
-    profile_image = db.Column(db.String(256))
+    profile_image = db.Column(db.Text)
     _access_token = db.Column('access_token', db.Text)
     _refresh_token = db.Column('refresh_token', db.Text)
     token_expiration = db.Column(db.DateTime)
