@@ -18,6 +18,9 @@ def create_app(config_name='default'):
     """Factory pattern to create Flask app"""
     app = Flask(__name__)
     app.config.from_object(config[config_name])
+
+    # Apply ProxyFix to handle Render's forwarded headers
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
     
     # Configure session to be more secure but work across domains
     app.config['SESSION_COOKIE_SECURE'] = app.config.get('SESSION_COOKIE_SECURE', False)
