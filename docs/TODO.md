@@ -22,6 +22,12 @@ Things to consider if the project scales or before a public launch.
 - [ ] **Uptime monitoring**: Add a `/health` endpoint and external monitor.
 - [ ] **Structured logging**: Replace print statements with proper structured logging.
 
+## iPhone/Safari Compatibility (ITP)
+
+- [ ] **Problem**: Safari's Intelligent Tracking Prevention (ITP) blocks the session cookie in cross-domain setups (frontend on `wo0.dev`, backend on `onrender.com`). This causes a login loop on iPhone.
+- [ ] **Short-term Fix**: Enable **Partitioned Cookies (CHIPS)**. Add `Partitioned` attribute to the session cookie so Safari allows it in a cross-site context.
+- [ ] **Long-term Fix**: Move backend to a subdomain (e.g., `api.statify.wo0.dev`). This makes the cookie "first-party" and universally accepted by all browsers without workarounds.
+
 ## Legal
 
 - [ ] **Privacy Policy page**: Explain what data is stored and why.
