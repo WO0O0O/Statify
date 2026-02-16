@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- **Login Loop on Safari/iOS**: Renamed session cookie to `statify_session` to bypass "zombie" cookies from previous configurations. This resolves 401 errors during auth flow caused by browser persistence of invalid/old cookies.
+- **Session Configuration**: Removed unused `SESSION_TYPE = 'filesystem'` config to prevent confusion and potential conflicts.
+
 # v1.1.0 — Security Hardening (Critical Fixes)
 
 ### Security

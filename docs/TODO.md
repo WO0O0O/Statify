@@ -24,9 +24,9 @@ Things to consider if the project scales or before a public launch.
 
 ## iPhone/Safari Compatibility (ITP)
 
-- [ ] **Problem**: Safari's Intelligent Tracking Prevention (ITP) blocks the session cookie in cross-domain setups (frontend on `wo0.dev`, backend on `onrender.com`). This causes a login loop on iPhone.
-- [ ] **Short-term Fix**: Enable **Partitioned Cookies (CHIPS)**. Add `Partitioned` attribute to the session cookie so Safari allows it in a cross-site context.
-- [ ] **Long-term Fix**: Move backend to a subdomain (e.g., `api.statify.wo0.dev`). This makes the cookie "first-party" and universally accepted by all browsers without workarounds.
+- [x] **Problem**: ~~Safari's Intelligent Tracking Prevention (ITP) blocks the session cookie in cross-domain setups (frontend on `wo0.dev`, backend on `onrender.com`). This causes a login loop on iPhone.~~ Resolved by using a custom subdomain (`api.statify.wo0.dev`) and proper cookie configuration.
+- [x] ~~**Short-term Fix**: Enable **Partitioned Cookies (CHIPS)**. Add `Partitioned` attribute to the session cookie so Safari allows it in a cross-site context.~~ Not needed.
+- [x] **Long-term Fix**: Move backend to a subdomain (e.g., `api.statify.wo0.dev`). This makes the cookie "first-party" and universally accepted by all browsers without workarounds. **[DONE]**
 
 ## Legal
 

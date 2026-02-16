@@ -49,12 +49,20 @@ def create_app(config_name='default'):
     with app.app_context():
         db.create_all()
     
-    # Add after_request handler for CORS headers (without duplicating credentials header)
+    # Add after_request handler for CORS headers and Cache-Control
     @app.after_request
     def after_request(response):
         # Only add these headers, not the credentials one which is already set by flask-cors
         response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
         response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+        
+        # Disable caching for auth and API endpoints to prevent session leakage
+        from flask import request
+        if request.path.startswith('/auth/') or request.path.startswith('/api/'):
+            response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+            response.headers['Pragma'] = 'no-cache'
+            response.headers['Expires'] = '0'
+            
         return response
     
     # Serve React Frontend
